@@ -1,0 +1,21 @@
+{
+  "name": "WebsocketPhone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "moment": "^2.17.1",
+    "nexmo": "^1.1.0",
+    "restify": "^4.3.0",
+    "websocket": "^1.0.23"
+  }
+}

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Websocket Phone</title>
+  </head>
+  <body>
+    <input id="phoneNumber">
+    <button id="call">Call</button>
+
+    <script>
+      call.addEventListener('click', function() {
+        navigator.mediaDevices.getUserMedia({audio:true})
+          .then(function(stream) {
+            var mediaRecorder = new MediaRecorder(stream);
+            var connection = new WebSocket('wss://' + window.location.hostname);
+
+            connection.onopen = function(event) {
+              console.log('Websocket is open');
+              connection.send(JSON.stringify({ phoneNumber: phoneNumber.value }));
+              mediaRecorder.start();
+            };
+
+            connection.onerror = function(error) {
+              console.log('Websocket error', error);
+            };
+
+            connection.onmessage = function(event) {
+              // Do something with event.data
+            };
+
+            connection.onclose = function(event) {
+              mediaRecorder.stop();
+            };
+
+            mediaRecorder.ondataavailable = function(e) {
+              // Send audio over websocket
+              connection.send(e.data);
+            };
+          })
+          .catch(function(err) {
+            alert('Cannot phone without audio');
+          });
+      });
+    </script>
+  </body>
+</html>
