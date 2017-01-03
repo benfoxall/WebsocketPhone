@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Websocket Phone</title>
+  </head>
+  <body>
+    <h1>Call</h1>
+    <script>
+
+    // connect to /browser/[conversation_uuid]
+    var id = location.search.match(/conversation_uuid=([0-9a-f-]+)/)[1]
+    var ws = new WebSocket('ws://' + window.location.host + '/browser/' + id)
+
+    ws.binaryType = 'arraybuffer'
+
+    ws.onopen = function() {
+      console.log('Websocket is open')
+    }
+
+    ws.onerror = function(error) {
+      console.log('Websocket error', error)
+    }
+
+    ws.onmessage = function(event) {
+      console.log("data>", event.data)
+    }
+
+    </script>
+  </body>
+</html>
